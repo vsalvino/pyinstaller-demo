@@ -64,7 +64,9 @@ Part 4: Build an `.exe` with PyInstaller
 ----------------------------------------
 
 To distribute our app to user who do not already have python installed, first we
-must build:
+must build. Note that PyInstaller can only build an executable for the OS it is
+running on. To build cross-platform executables for Windows, Mac, and Linux, you
+will need to run it separately on each system.
 
 ```
 pip install pyinstaller
@@ -73,7 +75,7 @@ pip install pyinstaller
 Now build:
 
 ```
-pyinstaller cli.py --name "myapp" --clean --onedir
+pyinstaller cli.py --name "myapp"
 ```
 
 That will create a directory containing all the dependencies and an executable.
@@ -82,5 +84,16 @@ To build it as a single executable (which runs slower, but is more convenient to
 distribute), use the `--onefile` option:
 
 ```
-pyinstaller cli.py --name "myapp" --clean --onefile
+pyinstaller cli.py --name "myapp" --onefile
+```
+
+
+Part 5: Building for all platforms with CI
+------------------------------------------
+
+Next we will use GitHub Actions to build our executable for Windows, Mac, and
+Linux every time we commit to the master branch. See the code in:
+
+```
+.github/workflows/pythonapp.yml
 ```
