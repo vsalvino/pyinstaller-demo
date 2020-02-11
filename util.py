@@ -10,9 +10,10 @@ class MyFile:
     """
     Holds file info
     """
-    def __init__(self, path: str, size_bytes: int):
+    def __init__(self, path: str, size_bytes: int, isdir: bool = False):
         self.path = path
         self.size_bytes = size_bytes
+        self.isdir = isdir
 
     @property
     def human_readable_bytes(self) -> str:
@@ -38,11 +39,6 @@ def list_files(directory: str) -> List[MyFile]:
     """
     files = []
     for path in os.listdir(directory):
-        if os.path.isfile(path):
-            files.append(
-                MyFile(
-                    path,
-                    os.path.getsize(path)
-                )
-            )
+        path = os.path.join(directory, path)
+        files.append(MyFile(path, os.path.getsize(path), os.path.isdir(path)))
     return files
