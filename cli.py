@@ -29,7 +29,7 @@ def main() -> None:
         path = args.path
         files = list_files(path)
         for f in files:
-            print(f.path, f.human_readable_bytes)
+            print(f"{f.path:<20}", f.human_readable_bytes)
 
 
 if __name__ == "__main__":
